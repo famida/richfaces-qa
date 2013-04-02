@@ -189,11 +189,12 @@ public class Attributes<T extends AttributeEnum> {
 
     private void applySelect(Tag tag, String value) {
         Validate.notEmpty(tag.selection.getOptions(), "No options from which can be selected.");
+        String visibleText;
 
         if (value.equals(NULLSTRING)) {
             for (WebElement element : tag.selection.getOptions()) {
-                String val = element.getAttribute("value");
-                if (new StringEqualsWrapper(val).isSimilarToSomeOfThis(NULLSTRINGOPTIONS)) {
+                visibleText = element.getText();
+                if (new StringEqualsWrapper(visibleText).isSimilarToSomeOfThis(NULLSTRINGOPTIONS)) {
                     if (!element.isSelected()) {
                         MetamerPage.waitRequest(element, WaitRequestType.HTTP).click();
                     }
@@ -201,24 +202,17 @@ public class Attributes<T extends AttributeEnum> {
                 }
             }
         } else {
-            if (isSelectOptionsContainingValue(value, tag.selection.getOptions())) {
-                tag.selection.selectByValue(value);
-            } else {
-                tag.selection.selectByVisibleText(value);
+            for (WebElement element : tag.selection.getOptions()) {
+                visibleText = element.getText();
+                if (visibleText.equalsIgnoreCase(value)) {
+                    if (!element.isSelected()) {
+                        MetamerPage.waitRequest(element, WaitRequestType.HTTP).click();
+                    }
+                    return;
+                }
             }
-            return;
         }
         throw new IllegalArgumentException("No property with value " + value + " was found");
-    }
-
-    private boolean isSelectOptionsContainingValue(String value, List<WebElement> options) {
-        for (Iterator<WebElement> i = options.iterator(); i.hasNext();) {
-            if (value.equals(i.next().getAttribute("value"))) {
-                return true;
-            }
-        }
-        System.out.println(" Value '" + value + "' was not found in select's options as @value. Consider use it as option label.");
-        return false;
     }
 
     /**
