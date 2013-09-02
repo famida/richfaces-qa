@@ -75,11 +75,13 @@ public class TestPanelMenuGroupMode extends AbstractPanelMenuGroupTest {
         panelMenuGroupAttributes.set(PanelMenuGroupAttributes.immediate, immediate);
         panelMenuGroupAttributes.set(PanelMenuGroupAttributes.bypassUpdates, bypassUpdates);
         panelMenuGroupAttributes.set(PanelMenuGroupAttributes.mode, mode);
-        page.topGroup.setMode(mode);
 
         panelMenuGroupAttributes.set(PanelMenuGroupAttributes.execute, "@this executeChecker");
 
-        assertTrue(page.topGroup.isExpanded());
+        assertTrue(page.getTopGroup().advanced().isExpanded());
+        switch(mode) {
+            case ajax: page.getMenu().expandGroup(1);
+        }
         page.topGroup.toggle();
         assertTrue(page.topGroup.isCollapsed());
 

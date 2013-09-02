@@ -112,20 +112,20 @@ public class TestPanelMenuItemSimple extends AbstractWebDriverTest {
     @Templates(value = "plain")
     public void testDisabledClass() {
         panelMenuItemAttributes.set(disabled, true);
-        testStyleClass(page.item.getRoot(), disabledClass);
+        testStyleClass(page.item.getRootElement(), disabledClass);
     }
 
     @Test
     @Templates(value = "plain")
     public void testLeftDisabledIcon() {
         panelMenuItemAttributes.set(disabled, true);
-        verifyStandardIcons(leftDisabledIcon, page.item.getLeftIcon().getRoot(), page.item.getLeftIcon().getImgIcon(), "");
+        verifyStandardIcons(leftDisabledIcon, page.item.getLeftIcon().getRootElement(), page.item.getLeftIcon().getImgIcon(), "");
     }
 
     @Test
     @Templates(value = "plain")
     public void testLeftIcon() {
-        verifyStandardIcons(leftIcon, page.item.getLeftIcon().getRoot(), page.item.getLeftIcon().getImgIcon(), "");
+        verifyStandardIcons(leftIcon, page.item.getLeftIcon().getRootElement(), page.item.getLeftIcon().getImgIcon(), "");
 
         panelMenuItemAttributes.set(disabled, true);
         assertTrue(page.item.getLeftIcon().isTransparent());
@@ -134,7 +134,7 @@ public class TestPanelMenuItemSimple extends AbstractWebDriverTest {
     @Test
     @Templates(value = "plain")
     public void testLeftIconClass() {
-        testStyleClass(page.item.getLeftIcon().getRoot(), leftIconClass);
+        testStyleClass(page.item.getLeftIcon().getRootElement(), leftIconClass);
     }
 
     @Test
@@ -161,14 +161,14 @@ public class TestPanelMenuItemSimple extends AbstractWebDriverTest {
     @Templates(value = "plain")
     public void testRightDisabledIcon() {
         panelMenuItemAttributes.set(disabled, true);
-        verifyStandardIcons(rightDisabledIcon, page.item.getRightIcon().getRoot(), page.item.getRightIcon().getImgIcon(), "");
+        verifyStandardIcons(rightDisabledIcon, page.item.getRightIcon().getRootElement(), page.item.getRightIcon().getImgIcon(), "");
     }
 
     @Test
     @RegressionTest("https://issues.jboss.org/browse/RF-10519")
     @Templates(value = "plain")
     public void testRightIcon() {
-        verifyStandardIcons(rightIcon, page.item.getRightIcon().getRoot(), page.item.getRightIcon().getImgIcon(), "");
+        verifyStandardIcons(rightIcon, page.item.getRightIcon().getRootElement(), page.item.getRightIcon().getImgIcon(), "");
 
         panelMenuItemAttributes.set(disabled, true);
         assertTrue(page.item.getRightIcon().isTransparent());
@@ -178,7 +178,7 @@ public class TestPanelMenuItemSimple extends AbstractWebDriverTest {
     @RegressionTest("https://issues.jboss.org/browse/RF-10519")
     @Templates(value = "plain")
     public void testRightIconClass() {
-        testStyleClass(page.item.getRightIcon().getRoot(), rightIconClass);
+        testStyleClass(page.item.getRightIcon().getRootElement(), rightIconClass);
     }
 
     @Test
@@ -213,13 +213,13 @@ public class TestPanelMenuItemSimple extends AbstractWebDriverTest {
     @Test
     @Templates(value = "plain")
     public void testStyle() {
-        testStyle(page.item.getRoot());
+        testStyle(page.item.getRootElement());
     }
 
     @Test
     @Templates(value = "plain")
     public void testStyleClass() {
-        testStyleClass(page.item.getRoot());
+        testStyleClass(page.item.getRootElement());
     }
 
     private void verifyStandardIcons(PanelMenuItemAttributes attribute, WebElement icon, WebElement imgIcon, String classSuffix) {

@@ -90,7 +90,7 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
     @Templates(value = "plain")
     public void testDisabledClass() {
         panelMenuGroupAttributes.set(disabled, true);
-        testStyleClass(page.topGroup.getRoot(), disabledClass);
+        testStyleClass(page.topGroup.getRootElement(), disabledClass);
     }
 
     @Test
@@ -200,14 +200,14 @@ public class TestPanelMenuGroupSimple extends AbstractPanelMenuGroupTest {
     @Test
     @Templates(value = "plain")
     public void testStyle() {
-        testStyle(page.topGroup.getRoot());
+        testStyle(page.topGroup.getRootElement());
     }
 
     @Test
     @RegressionTest("https://issues.jboss.org/browse/RF-10485")
     @Templates(value = "plain")
     public void testStyleClass() {
-        testStyleClass(page.topGroup.getRoot());
+        testStyleClass(page.topGroup.getRootElement());
     }
 
     private void verifyStandardIcons(PanelMenuGroupAttributes attribute, WebElement icon, WebElement imgIcon, String classSuffix) {

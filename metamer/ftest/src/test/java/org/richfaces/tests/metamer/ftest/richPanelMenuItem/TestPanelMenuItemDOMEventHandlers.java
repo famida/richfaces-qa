@@ -61,28 +61,28 @@ public class TestPanelMenuItemDOMEventHandlers extends AbstractWebDriverTest {
     public void testOnClick() {
         panelMenuItemAttributes.set(mode, client);
 
-        Action click = new Actions(driver).click(page.item.getRoot()).build();
+        Action click = new Actions(driver).click(page.item.getRootElement()).build();
         testFireEvent(panelMenuItemAttributes, onclick, click);
     }
 
     @Test
     public void testOnDblClick() {
         panelMenuItemAttributes.set(mode, client);
-        Action dblClick = new Actions(driver).doubleClick(page.item.getRoot()).build();
+        Action dblClick = new Actions(driver).doubleClick(page.item.getRootElement()).build();
         testFireEvent(panelMenuItemAttributes, ondblclick, dblClick);
     }
 
     @Test
     public void testOnMousedown() {
         panelMenuItemAttributes.set(mode, client);
-        Action mousedown = new Actions(driver).clickAndHold(page.item.getRoot()).build();
+        Action mousedown = new Actions(driver).clickAndHold(page.item.getRootElement()).build();
         testFireEvent(panelMenuItemAttributes, onmousedown, mousedown);
     }
 
     @Test
     public void testOnMousemove() {
         panelMenuItemAttributes.set(mode, client);
-        Action mousemove = new Actions(driver).moveToElement(page.item.getRoot(), 3, 3).build();
+        Action mousemove = new Actions(driver).moveToElement(page.item.getRootElement(), 3, 3).build();
         testFireEvent(panelMenuItemAttributes, onmousemove, mousemove);
     }
 
@@ -90,20 +90,20 @@ public class TestPanelMenuItemDOMEventHandlers extends AbstractWebDriverTest {
     public void testOnMouseout() {
         panelMenuItemAttributes.set(mode, client);
         // TODO JJa 2013-02-25: Rewrite using webdriver api when fixed (not working now)
-        testFireEventWithJS(page.item.getRoot(), Event.MOUSEOUT, panelMenuItemAttributes, PanelMenuItemAttributes.onmouseout);
+        testFireEventWithJS(page.item.getRootElement(), Event.MOUSEOUT, panelMenuItemAttributes, PanelMenuItemAttributes.onmouseout);
     }
 
     @Test
     public void testOnMouseover() {
         panelMenuItemAttributes.set(mode, client);
-        Action mouseover = new Actions(driver).moveToElement(page.item.getRoot(), 3, 3).build();
+        Action mouseover = new Actions(driver).moveToElement(page.item.getRootElement(), 3, 3).build();
         testFireEvent(panelMenuItemAttributes, onmouseover, mouseover);
     }
 
     @Test
     public void testOnMouseup() {
         panelMenuItemAttributes.set(mode, client);
-        Action mouseup = new Actions(driver).clickAndHold(page.item.getRoot()).release().build();
+        Action mouseup = new Actions(driver).clickAndHold(page.item.getRootElement()).release().build();
         testFireEvent(panelMenuItemAttributes, onmouseup, mouseup);
     }
 }
