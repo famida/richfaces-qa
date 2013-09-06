@@ -5,7 +5,7 @@ import java.util.List;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
-import org.jboss.arquillian.graphene.enricher.findby.ByJQuery;
+import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -25,7 +25,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup {
     public static final String CSS_HOVERED_SUFFIX = "-hov";
     public static final String CSS_DISABLED_SUFFIX = "-dis";
     public static final String CSS_COLLAPSED_SUFFIX = "-colps";
-    private static final String HEADER_SELECTOR_TO_INVOKE_EVENT_ON = "> div[class*=hdr]";
+    private static final String HEADER_SELECTOR_TO_INVOKE_EVENT_ON = "> div[class*=rf-pm-][class*=-gr-hdr]";
 
     @ArquillianResource
     private JavascriptExecutor executor;
@@ -41,8 +41,9 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup {
         WebElement itemRoot = picker.pick(getMenuItems());
         ensureElementExist(itemRoot);
         ensureElementIsEnabledAndVisible(itemRoot);
-        itemRoot.click();
-        return Graphene.createPageFragment(RichFacesPanelMenuItem.class, itemRoot);
+        RichFacesPanelMenuItem panelMenuItem = Graphene.createPageFragment(RichFacesPanelMenuItem.class, itemRoot);
+        panelMenuItem.select();
+        return panelMenuItem;
     }
 
     @Override
@@ -130,7 +131,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup {
         }
 
         public boolean isGroupExpanded(WebElement groupRoot) {
-            return isGroupExpanded(getHeaderElementDynamically(groupRoot));
+            return AbstractPanelMenu.this.isGroupExpanded(getHeaderElementDynamically(groupRoot));
         }
 
         public WebElement getHeaderElement(WebElement groupRoot) {
@@ -182,7 +183,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup {
     }
 
     private WebElement getHeaderElementDynamically(WebElement element) {
-        return element.findElement(ByJQuery.jquerySelector(HEADER_SELECTOR_TO_INVOKE_EVENT_ON));
+        return element.findElement(ByJQuery.selector(HEADER_SELECTOR_TO_INVOKE_EVENT_ON));
     }
 
     private void ensureElementExist(WebElement element) {

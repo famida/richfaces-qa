@@ -27,6 +27,7 @@ import static org.richfaces.tests.metamer.ftest.richPanelMenu.PanelMenuAttribute
 import static org.richfaces.tests.metamer.ftest.richPanelMenu.PanelMenuAttributes.ondblclick;
 import static org.richfaces.tests.metamer.ftest.richPanelMenu.PanelMenuAttributes.onmousedown;
 import static org.richfaces.tests.metamer.ftest.richPanelMenu.PanelMenuAttributes.onmousemove;
+import static org.richfaces.tests.metamer.ftest.richPanelMenu.PanelMenuAttributes.onmouseout;
 import static org.richfaces.tests.metamer.ftest.richPanelMenu.PanelMenuAttributes.onmouseover;
 import static org.richfaces.tests.metamer.ftest.richPanelMenu.PanelMenuAttributes.onmouseup;
 import static org.richfaces.tests.metamer.ftest.webdriver.AttributeList.panelMenuAttributes;
@@ -52,6 +53,7 @@ import org.richfaces.tests.page.fragments.impl.utils.Event;
 import org.testng.annotations.Test;
 
 import com.google.common.base.Predicate;
+
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision: 22749 $
@@ -59,11 +61,13 @@ import com.google.common.base.Predicate;
 public class TestPanelMenuDOMEvents extends AbstractPanelMenuTest {
 
     @Inject
-    @Use("events")
+    @Use(empty = true)
     Event event = DBLCLICK;
+
     Event[] events = new Event[] { CLICK, DBLCLICK, MOUSEDOWN, MOUSEMOVE, MOUSEOUT, MOUSEOVER, MOUSEUP };
 
     @Test
+    @Use(field = "event", value = "events")
     public void testExpandEvent() {
         panelMenuAttributes.set(expandEvent, event.getEventName());
         assertFalse(page.getGroup2().advanced().isExpanded());
@@ -73,6 +77,7 @@ public class TestPanelMenuDOMEvents extends AbstractPanelMenuTest {
     }
 
     @Test
+    @Use(field = "event", value = "events")
     public void testCollapseEvent() {
         panelMenuAttributes.set(collapseEvent, event.getEventName());
 
@@ -99,6 +104,7 @@ public class TestPanelMenuDOMEvents extends AbstractPanelMenuTest {
     public void testOnMousedown() {
         Action mousedown = new Actions(driver).clickAndHold(page.getPanelMenu().advanced().getRootElement()).build();
         testFireEvent(panelMenuAttributes, onmousedown, mousedown);
+        new Actions(driver).release().build();
     }
 
     @Test
@@ -109,10 +115,9 @@ public class TestPanelMenuDOMEvents extends AbstractPanelMenuTest {
 
     @Test
     public void testOnMouseout() {
-        // TODO 2013-02-07 JJa: implement using WebDriver API (doesn't work for now)
-        // Action mouseout = new Actions(driver).moveToElement(page.getPanelMenu().advanced().getRoot()).moveByOffset(-5, -5).build();
-        // testFireEvent(panelMenuAttributes, onmouseout, mouseout);
-        testFireEventWithJS(page.getPanelMenu().advanced().getRootElement(), Event.MOUSEOUT, panelMenuAttributes, PanelMenuAttributes.onmouseout);
+        Action mouseout = new Actions(driver).moveToElement(page.getPanelMenu().advanced().getRootElement())
+            .moveByOffset(-5, -5).build();
+        testFireEvent(panelMenuAttributes, onmouseout, mouseout);
     }
 
     @Test
@@ -123,7 +128,7 @@ public class TestPanelMenuDOMEvents extends AbstractPanelMenuTest {
 
     @Test
     public void testOnMouseup() {
-        Action mouseup = new Actions(driver).clickAndHold(page.getPanelMenu().advanced().getRootElement()).release().build();
+        Action mouseup = new Actions(driver).click(page.getPanelMenu().advanced().getRootElement()).build();
         testFireEvent(panelMenuAttributes, onmouseup, mouseup);
     }
 

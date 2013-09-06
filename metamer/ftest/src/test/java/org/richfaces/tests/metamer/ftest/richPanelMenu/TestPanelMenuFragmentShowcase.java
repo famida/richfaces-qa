@@ -8,10 +8,12 @@ import static org.testng.Assert.assertEquals;
 
 import java.net.URL;
 
-import org.jboss.arquillian.graphene.enricher.findby.FindBy;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.richfaces.tests.metamer.ftest.AbstractWebDriverTest;
 import org.richfaces.tests.page.fragments.impl.panelMenu.RichFacesPanelMenu;
+import org.richfaces.tests.page.fragments.impl.panelMenu.RichFacesPanelMenuItem;
 import org.richfaces.tests.page.fragments.impl.utils.Event;
 import org.richfaces.tests.page.fragments.impl.utils.picker.ChoicePickerHelper;
 import org.testng.annotations.Test;
@@ -25,13 +27,14 @@ public class TestPanelMenuFragmentShowcase extends AbstractWebDriverTest {
 
     @FindBy(className = "rf-pm")
     private RichFacesPanelMenu menu;
-    @FindBy(jquery = "*[id*=current]")
+    @FindByJQuery("*[id*=current]")
     private WebElement selectedItem;
+    @FindBy(css = "div[id$=item22]")
+    private RichFacesPanelMenuItem item22;
 
     @Test
     public void testFragment() {
-        guardAjax(menu.expandGroup("Group 1"))
-            .selectItem(ChoicePickerHelper.byVisibleText().match("Item 1.2"));
+        guardAjax(menu.expandGroup("Group 1")).selectItem(ChoicePickerHelper.byVisibleText().match("Item 1.2"));
         assertEquals(selectedItem.getText(), "item12");
 
         try {
@@ -56,5 +59,11 @@ public class TestPanelMenuFragmentShowcase extends AbstractWebDriverTest {
         menu.advanced().setExpandEvent(Event.MOUSEOVER);
         guardAjax(menu.expandGroup("Group 3")).selectItem("Item 3.1");
         assertEquals(selectedItem.getText(), "item31");
+
+        guardAjax(item22).select();
+        assertEquals(selectedItem.getText(), "item22");
+
+        guardAjax(menu).selectItem("Item 2.1");
+        assertEquals(selectedItem.getText(), "item21");
     }
 }

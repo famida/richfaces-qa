@@ -1,9 +1,9 @@
 package org.richfaces.tests.page.fragments.impl.panelMenu;
 
-import org.jboss.arquillian.graphene.enricher.findby.FindBy;
-import org.jboss.arquillian.graphene.spi.annotations.Root;
+import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class RichFacesPanelMenuItem implements PanelMenuItem {
 
@@ -21,7 +21,7 @@ public class RichFacesPanelMenuItem implements PanelMenuItem {
 
     @Override
     public void select() {
-        // TODO
+        root.click();
     }
 
     public AdvancedInteractions advanced() {
@@ -59,6 +59,14 @@ public class RichFacesPanelMenuItem implements PanelMenuItem {
 
         private WebElement getImgElementFrom(WebElement element) {
             return element.findElement(By.tagName("img"));
+        }
+
+        public boolean isDisabled() {
+            return root.getAttribute("class").contains("-dis");
+        }
+
+        public boolean isTransparent(WebElement icon) {
+            return icon.getAttribute("class").contains("-transparent");
         }
     }
 }

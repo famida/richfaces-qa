@@ -2,16 +2,16 @@ package org.richfaces.tests.page.fragments.impl.panelMenu;
 
 import java.util.List;
 
-import org.jboss.arquillian.graphene.enricher.findby.FindBy;
-import org.jboss.arquillian.graphene.spi.annotations.Root;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class RichFacesPanelMenu extends AbstractPanelMenu {
 
-    @FindBy(jquery = ".rf-pm-top-gr,.rf-pm-gr")
+    @FindByJQuery(".rf-pm-top-gr,.rf-pm-gr")
     private List<WebElement> menuGroups;
-    @FindBy(jquery = ".rf-pm-top-itm,.rf-pm-itm")
+    @FindByJQuery(".rf-pm-top-itm,.rf-pm-itm")
     private List<WebElement> menuItems;
 
     private AdvancedInteractions advancedInteractions;

@@ -2,22 +2,23 @@ package org.richfaces.tests.page.fragments.impl.panelMenu;
 
 import java.util.List;
 
-import org.jboss.arquillian.graphene.enricher.findby.FindBy;
-import org.jboss.arquillian.graphene.spi.annotations.Root;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
 
-    @FindBy(jquery = ".rf-pm-gr:visible")
+    @FindByJQuery(".rf-pm-gr:visible")
     private List<WebElement> menuGroups;
-    @FindBy(jquery = ".rf-pm-itm:visible")
+    @FindByJQuery(".rf-pm-itm:visible")
     private List<WebElement> menuItems;
     @FindBy(css = "td[class*=rf-pm-][class*=-gr-lbl]")
     private WebElement label;
 
-    @FindBy(jquery = "td[class*=rf-pm-][class*=-gr-ico] :visible[class*=rf-pm-ico-]")
+    @FindByJQuery("td[class*=rf-pm-][class*=-gr-ico] :visible[class*=rf-pm-ico-]")
     private WebElement leftIcon;
-    @FindBy(jquery = "td[class*=rf-pm-][class*=-gr-exp-ico] :visible[class*=rf-pm-ico-]")
+    @FindByJQuery("td[class*=rf-pm-][class*=-gr-exp-ico] :visible[class*=rf-pm-ico-]")
     private WebElement rightIcon;
 
     @Root
@@ -69,6 +70,14 @@ public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
 
         public WebElement getHeaderElement() {
             return super.getHeaderElement(root);
+        }
+
+        public boolean isDisabled() {
+            return root.getAttribute("class").contains("-dis");
+        }
+
+        public boolean isSelected() {
+            return getHeaderElement().getAttribute("class").contains("-sel");
         }
     }
 }
