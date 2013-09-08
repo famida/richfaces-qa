@@ -133,10 +133,6 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup {
         public boolean isGroupExpanded(WebElement groupRoot) {
             return AbstractPanelMenu.this.isGroupExpanded(getHeaderElementDynamically(groupRoot));
         }
-
-        public WebElement getHeaderElement(WebElement groupRoot) {
-            return getHeaderElementDynamically(groupRoot);
-        }
     }
 
     private boolean isGroupExpanded(WebElement group) {

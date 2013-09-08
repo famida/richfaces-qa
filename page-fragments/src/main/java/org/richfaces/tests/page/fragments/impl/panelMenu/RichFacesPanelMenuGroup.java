@@ -15,7 +15,8 @@ public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
     private List<WebElement> menuItems;
     @FindBy(css = "td[class*=rf-pm-][class*=-gr-lbl]")
     private WebElement label;
-
+    @FindByJQuery("> div[class*=rf-pm-][class*=-gr-hdr]")
+    private WebElement header;
     @FindByJQuery("td[class*=rf-pm-][class*=-gr-ico] :visible[class*=rf-pm-ico-]")
     private WebElement leftIcon;
     @FindByJQuery("td[class*=rf-pm-][class*=-gr-exp-ico] :visible[class*=rf-pm-ico-]")
@@ -69,7 +70,7 @@ public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
         }
 
         public WebElement getHeaderElement() {
-            return super.getHeaderElement(root);
+            return header;
         }
 
         public boolean isDisabled() {

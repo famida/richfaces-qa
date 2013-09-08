@@ -1,7 +1,6 @@
 package org.richfaces.tests.page.fragments.impl.panelMenu;
 
 import org.jboss.arquillian.graphene.fragment.Root;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -13,6 +12,10 @@ public class RichFacesPanelMenuItem implements PanelMenuItem {
     private WebElement leftIcon;
     @FindBy(css = "td[class*=rf-][class*=-itm-exp-ico]")
     private WebElement rightIcon;
+    @FindBy(css = "td[class*=rf-][class*=-itm-ico] img")
+    private WebElement leftIconImg;
+    @FindBy(css = "td[class*=rf-][class*=-itm-exp-ico] img")
+    private WebElement rightIconImg;
 
     @Root
     private WebElement root;
@@ -42,11 +45,11 @@ public class RichFacesPanelMenuItem implements PanelMenuItem {
         }
 
         public WebElement getRightIconImg() {
-            return getImgElementFrom(rightIcon);
+            return rightIconImg;
         }
 
         public WebElement getLeftIconImg() {
-            return getImgElementFrom(leftIcon);
+            return leftIconImg;
         }
 
         public boolean isSelected() {
@@ -55,10 +58,6 @@ public class RichFacesPanelMenuItem implements PanelMenuItem {
 
         public WebElement getRootElement() {
             return root;
-        }
-
-        private WebElement getImgElementFrom(WebElement element) {
-            return element.findElement(By.tagName("img"));
         }
 
         public boolean isDisabled() {
